@@ -313,13 +313,15 @@ const chunkIds = (list) => {
     return chunkedList
 }
 // get field values for a given table id and map any scanreport concepts that are associated
-const getScanReportFieldValues = async (valueId, valuesRef) => {
-    let response = await useGet(`/scanreportfields/?scan_report_table=${valueId}`)
-    response = response.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
+const getScanReportFieldValues = async (valueId, valuesRef, currentPage, page_size) => {
+    let response = await useGet(`/scanreportfields/?scan_report_table=${valueId}&p=${currentPage}&page_size=${page_size}`)
+    let count = response.count
+    response = response.results.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
     if (response.length == 0) {
         return []
     }
     response = await getValuesScanReportConcepts(response,15,valuesRef)
+    response.count = count
     return response
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
     Button,
+    Center,
     Table,
     Thead,
     Tbody,
@@ -22,11 +23,14 @@ import {
 
 import { Formik, Form, } from 'formik'
 import { getScanReportTable, getScanReportFieldValues, useGet } from '../api/values'
+import { set_pagination_variables } from '../api/pagination_helpers'
 import ConceptTag from './ConceptTag'
 import ToastAlert from './ToastAlert'
 import PageHeading from './PageHeading'
 import CCBreadcrumbBar from './CCBreadcrumbBar'
 import Error404 from '../views/Error404'
+import Pagination from 'react-js-pagination'
+
 
 const FieldsTbl = (props) => {
     // get the value to use to query the fields endpoint from the page url
@@ -46,33 +50,67 @@ const FieldsTbl = (props) => {
     const scanReportTable = useRef([]);
     const scanReportName = useRef([]);
     const [mappingButtonDisabled, setMappingButtonDisabled] = useState(true);
+    const [page_size, set_page_size] = useState(10)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalItemsCount, setTotalItemsCount] = useState(null);
+    const [firstLoad, setFirstLoad] = useState(true);
 
-    useEffect(() => {
-        props.setTitle(null)
+    useEffect(async () => {
+        console.log('6', pathArray[pathArray.length - 6])
+        console.log('5', pathArray[pathArray.length - 5])
+        console.log('4', pathArray[pathArray.length - 4])
         // run on initial render
-        // Check if user can see SR table
-        useGet(`/scanreporttables/${scanReportTableId}/`).then(
-            res => {
+        props.setTitle(null)
+        // get scan report name for breadcrumbs
+        useGet(`/scanreports/${scanReportId}/`).then(sr => scanReportName.current = sr.dataset)
+
+        let { local_page, local_page_size } = await set_pagination_variables(window.location.search, page_size, set_page_size, currentPage, setCurrentPage);
+        window.history.pushState({}, '', `/scanreports/${scanReportId}/tables/${scanReportTableId}/?p=${local_page}&page_size=${local_page_size}`)
+
+        setFirstLoad(false)
+    }, []);
+
+
+    useEffect(async () => {
+    // if not the first load, then load data etc. This clause avoids an initial call using the default values of
+        // currentPage and page_size, which is not desired.
+        if (!firstLoad) {
+            try {
+
+                // Check if user can see SR table
+                useGet(`/scanreporttables/${scanReportTableId}/`)
+
+                const setValuesAsync = async (vals) => {
+                    setValues(vals)
+                }
                 // get field table values for specified id
-                getScanReportFieldValues(scanReportTableId, valuesRef).then(val => {
-                    setValues(val)
+                getScanReportFieldValues(scanReportTableId, valuesRef, currentPage, page_size).then(val => {
+                    setValuesAsync(val)
+                    setTotalItemsCount(val.count)
                     setLoading(false)
                 })
+
                 // get scan report table data to use for checking person id and date event
                 getScanReportTable(scanReportTableId).then(table => {
                     scanReportTable.current = table
                     setMappingButtonDisabled(false)
                 })
-                useGet(`/scanreports/${scanReportId}/`).then(sr => scanReportName.current = sr.dataset)
+
+                setLoading(false);
+                setLoadingMessage("");
             }
-        ).catch(
-            err => {
-                // If user can't see SR table, show an error message
-                setError(true)
-                setLoading(false)
+            catch (error) {
+                setLoading(false);
+                setLoadingMessage("");
+                setError("An error has occurred while fetching the fields")
             }
-        )
-    }, []);
+        }
+    }, [currentPage, page_size, firstLoad]);
+
+    const onPageChange = (page) => {
+        window.history.pushState({}, '', `/scanreports/${scanReportId}/tables/${scanReportTableId}/?p=${page}&page_size=${page_size}`)
+        setCurrentPage(page)
+    }
 
     // called to submit a concept to be added. Calls handle submit function from app.js
     const handleSubmit = (id, concept) => {
@@ -135,7 +173,17 @@ const FieldsTbl = (props) => {
                         <ToastAlert hide={onClose} title={alert.title} status={alert.status} description={alert.description} />
                     </ScaleFade>
                 }
-
+                <Center>
+                    <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={page_size}
+                        totalItemsCount={totalItemsCount}
+                        pageRangeDisplayed={5}
+                        onChange={onPageChange}
+                        itemClass='btn paginate'
+                        activeClass='btn disabled paginate'
+                    />
+                </Center>
                 <Table variant="striped" colorScheme="greyBasic">
                     <TableCaption></TableCaption>
                     <Thead>

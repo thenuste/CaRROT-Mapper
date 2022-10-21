@@ -618,6 +618,7 @@ class ScanReportTableViewSet(viewsets.ModelViewSet):
 
 class ScanReportFieldViewSet(viewsets.ModelViewSet):
     queryset = ScanReportField.objects.all()
+    pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {
         "scan_report_table": ["in", "exact"],
