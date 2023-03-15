@@ -1,0 +1,35 @@
+version: '2'
+services:
+  db:
+    container_name: postgresql-db
+    image: postgres:latest
+    restart: always
+    ports: 
+      - "5432"
+    links:
+      - db-gui
+      - app
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=sgamage
+      - POSTGRES_PASSWORD=test1234
+  db-gui:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    ports:
+      - "51461:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=stefano.gamage@bcplatforms.com
+      - PGADMIN_DEFAULT_PASSWORD=test1234
+  app:
+    container_name: carrot_mapper
+    image: carrot-mapper-bcp:1.0
+    restart: always
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./api:/api
+    env_file:
+      - ./.env  
