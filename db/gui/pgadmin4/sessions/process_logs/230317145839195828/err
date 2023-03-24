@@ -1,0 +1,4 @@
+230317145839796430,ERROR:  character with byte sequence 0xc3 in encoding "ISO_8859_8" has no equivalent in encoding "UTF8"
+
+230317145839805559,CONTEXT:  COPY concept_synonym, line 2706
+

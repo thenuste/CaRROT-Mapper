@@ -1,0 +1,6 @@
+230317144651395426,ERROR:  value too long for type character varying(255)
+
+230317144651399656,CONTEXT:  COPY concept, line 159609, column concept_name: "Wilsons Mills	Geography	OSM	8th level	S	177402	19700101	20991231	
+
+230317144651404030,42074641	Ogden	Geography	OSM	8th l..."
+

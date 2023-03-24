@@ -1,0 +1,10 @@
+230317153103829083,ERROR:  value too long for type character varying(1000)
+
+230317153103833489,CONTEXT:  COPY concept_synonym, line 9642, column concept_synonym_name: "בני עיש	4180047
+
+230317153103837151,41995112	אשקלון	4180047
+
+230317153103839904,41995113	جلجولية	4181374
+
+230317153103842514,41995114	גבע..."
+

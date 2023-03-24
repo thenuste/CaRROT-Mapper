@@ -1,0 +1,6 @@
+230317143711485935,ERROR:  value too long for type character varying(255)
+
+230317143711493484,CONTEXT:  COPY concept, line 158572, column concept_name: "Rocky Boys Agency	Geography	OSM	8th level	S	142381	19700101	20991231	
+
+230317143711502841,42079223	St. Pierre	Geography	..."
+

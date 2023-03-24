@@ -1,0 +1,6 @@
+230317133635361540,ERROR:  value too long for type character varying(255)
+
+230317133635367486,CONTEXT:  COPY concept, line 9370, column concept_name: "Brutons tyrosine kinase (BTK) inhibitors	Drug	ATC	ATC 4th	C	L01EL	20210222	20991231	
+
+230317133635372375,947893	ibrutini..."
+

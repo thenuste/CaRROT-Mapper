@@ -1,0 +1,4 @@
+230317134413812640,ERROR:  value too long for type character varying(255)
+
+230317134413818765,CONTEXT:  COPY concept, line 16346, column concept_name: "Rollabout chair, any and all types with casters 5 or greater	Device	HCPCS	HCPCS	S	E1031	19900101	209..."
+

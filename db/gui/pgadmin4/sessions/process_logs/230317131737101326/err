@@ -1,0 +1,4 @@
+230317131745784835,ERROR:  invalid input syntax for type integer: "concept_id"
+
+230317131745789373,CONTEXT:  COPY concept, line 1, column concept_id: "concept_id"
+

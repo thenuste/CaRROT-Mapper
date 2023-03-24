@@ -1,0 +1,4 @@
+230317131634284844,ERROR:  invalid input syntax for type integer: "concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concept	concept_code	valid_start_date	valid_end_date	invalid_reason"
+
+230317131634291307,CONTEXT:  COPY concept, line 1, column concept_id: "concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concept	concept_code	valid..."
+

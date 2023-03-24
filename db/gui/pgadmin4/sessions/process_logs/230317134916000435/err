@@ -1,0 +1,4 @@
+230317134937026781,ERROR:  extra data after last expected column
+
+230317134937033307,CONTEXT:  COPY concept, line 12167: "2616860	Wheelchair accessory, ventilator tray, gimbaled	Device	HCPCS	HCPCS	S	E1030	20040101	20991231..."
+

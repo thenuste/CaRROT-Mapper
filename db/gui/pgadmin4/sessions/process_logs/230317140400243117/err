@@ -1,0 +1,6 @@
+230317140416421400,ERROR:  value too long for type character varying(255)
+
+230317140416426930,CONTEXT:  COPY concept, line 16764, column concept_name: "Transfer board,<25	Device	HCPCS	HCPCS	S	K0103	19931001	20031231	
+
+230317140416431437,44782169	CYLINDER TANK CARRIER	Devi..."
+

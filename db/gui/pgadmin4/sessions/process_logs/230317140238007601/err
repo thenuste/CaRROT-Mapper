@@ -1,0 +1,4 @@
+230317140254167949,ERROR:  value too long for type character varying(255)
+
+230317140254173112,CONTEXT:  COPY concept, line 16392, column concept_name: "Seat depth of 15, 17, or 18 for a high strength, lightweight or ultralightweight wheelchair	Device	H..."
+

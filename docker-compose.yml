@@ -11,6 +11,7 @@ services:
       - app
     volumes:
       - ./db/data:/var/lib/postgresql/data
+      - ./db/files:/tmp
     environment:
       - POSTGRES_USER=sgamage
       - POSTGRES_PASSWORD=test1234
@@ -23,6 +24,8 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=stefano.gamage@bcplatforms.com
       - PGADMIN_DEFAULT_PASSWORD=test1234
+    volumes:
+      - ./db/gui/pgadmin4:/var/lib/pgadmin
   app:
     container_name: carrot_mapper
     image: carrot-mapper-bcp:1.0
